@@ -1,5 +1,4 @@
 <script>
-import {RouterView,RouterLink} from "vue-router";
 export default {
   data() {
     return {
@@ -9,9 +8,8 @@ export default {
       comments: 'comments'.toUpperCase(),
       about: 'about us'.toUpperCase(),
       contact: 'contact us'.toUpperCase(),
+      notifications: 'notifications'.toUpperCase() 
     };
-  },
-  methods: {
   }
 };
 </script>
@@ -30,10 +28,10 @@ export default {
         <router-link to="/comments" ><pv-button class="custom-button" :label="comments" badgeSeverity="contrast" outlined /> </router-link>
         <router-link to="/about" ><pv-button class="custom-button" :label="about" badgeSeverity="contrast" outlined /> </router-link>
         <router-link to="/contact" ><pv-button class="custom-button" :label="contact" badgeSeverity="contrast" outlined /> </router-link>
+        <router-link to="/notifications" ><pv-button class="custom-button" :label="notifications" badgeSeverity="contrast" outlined /> </router-link>
       </div>
     </template>
   </pv-toolbar>
-  <router-view></router-view>
 </template>
 
 <style scoped>

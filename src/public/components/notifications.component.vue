@@ -6,7 +6,8 @@ export default {
       activeTab: 'all',
       currentUser: {
         name: 'Juan Pérez',
-        img: 'https://via.placeholder.com/100',
+        img: 'https://via.placeholder.com/120',
+        description: 'Abogado especialista en derecho familiar'
       },
       notifications: [
         { id: 1, name: 'Usuario 1', message: 'Te ha enviado un mensaje', img: 'https://via.placeholder.com/50', type: 'all' },
@@ -31,23 +32,24 @@ export default {
 </script>
 
 <template>
-  <div class="notifications-container">
-    <div class="left-sidebar">
-      <div class="user-info">
-        <img :src="currentUser.img" alt="User Image" class="user-image" />
-        <h3>{{ currentUser.name }}</h3>
+  <div class="page-background">
+    <div class="notifications-container">
+      <div class="user-profile">
+        <img :src="currentUser.img" alt="User Image" class="avatar" />
+        <h2>{{ currentUser.name }}</h2>
+        <p>{{ currentUser.description }}</p>
       </div>
-    </div>
-    <div class="main-content">
-      <div class="buttons">
-        <button @click="setTab('all')" :class="{ active: activeTab === 'all' }">Todo</button>
-        <button @click="setTab('cases')" :class="{ active: activeTab === 'cases' }">Mis Casos</button>
-      </div>
-      <div class="notifications-list">
-        <div v-for="notification in filteredNotifications" :key="notification.id" class="notification-item">
-          <img :src="notification.img" alt="User Image" class="notification-user-image" />
-          <div class="notification-details">
-            <strong>{{ notification.name }}</strong> - {{ notification.message }}
+      <div class="notifications-content">
+        <div class="filter-buttons">
+          <button @click="setTab('all')" :class="{ active: activeTab === 'all' }">Todo</button>
+          <button @click="setTab('cases')" :class="{ active: activeTab === 'cases' }">Mis Casos</button>
+        </div>
+        <div class="notifications-list">
+          <div v-for="notification in filteredNotifications" :key="notification.id" class="notification-item">
+            <img :src="notification.img" alt="User Image" class="notification-user-image" />
+            <div class="notification-details">
+              <strong>{{ notification.name }}</strong> - {{ notification.message }}
+            </div>
           </div>
         </div>
       </div>
@@ -56,101 +58,115 @@ export default {
 </template>
 
 <style scoped>
-/* Contenedor principal */
+.page-background {
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
 .notifications-container {
   display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  background-color: #f5f5f5;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Barra lateral izquierda */
-.left-sidebar {
-  width: 250px;
-  background-color: rgb(26, 1, 26);
-  color: rgb(223, 226, 13);
-  padding: 2rem;
-  border-radius: 8px;
+.user-profile {
+  width: 25%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
   text-align: center;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.user-image {
-  width: 100px;
-  height: 100px;
+.avatar {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  border: 3px solid #fff;
+  object-fit: cover;
+  margin-bottom: 15px;
 }
 
-/* Contenedor principal de las notificaciones */
-.main-content {
-  flex: 1;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.user-profile h2 {
+  margin: 10px 0 5px;
+  font-size: 1.8rem;
+  color: #333;
 }
 
-/* Botones de filtro */
-.buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+.user-profile p {
+  color: #666;
+  font-size: 1rem;
 }
 
-button {
-  padding: 0.5rem 1rem;
-  border: 2px solid rgb(223, 226, 13);
-  background-color: white;
-  color: rgb(26, 1, 26);
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-}
-
-button.active {
-  background-color: rgb(223, 226, 13);
-  color: rgb(26, 1, 26);
-}
-
-/* Lista de notificaciones */
-.notifications-list {
+.notifications-content {
+  width: 65%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.filter-buttons button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ff0000;
+  border: 1px solid #ff0000;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 5px;
+}
+
+.filter-buttons button.active {
+  background-color: #ff0000;
+  color: white;
+}
+
+.filter-buttons button:hover {
+  background-color: #ffcccc;
+}
+
+.notifications-list {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .notification-item {
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #fff;
-  border: 2px solid rgb(223, 226, 13);
-  border-radius: 8px;
-  transition: box-shadow 0.2s ease;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
 }
 
-.notification-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+.notification-item:last-child {
+  border-bottom: none;
 }
 
 .notification-user-image {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid rgb(223, 226, 13);
+  margin-right: 10px;
+  border: 2px solid #ff0000;
 }
 
 .notification-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: rgb(26, 1, 26);
+  color: #333;
 }
+
 </style>
