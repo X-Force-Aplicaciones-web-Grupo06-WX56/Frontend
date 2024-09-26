@@ -20,11 +20,12 @@ import Drawer from "primevue/drawer";
 import Aura from '@primevue/themes/aura';
 import FloatLabel from "primevue/floatlabel";
 import InputText from "primevue/inputtext";
-import router from "@/routes/index.js";
+import Card from "primevue/card";
+
 
 
 // Router
-
+import router from "@/routes/index.js";
 
 const app = createApp(App);
 // PrimeVue
@@ -47,7 +48,8 @@ app.use(PrimeVue, {
     .component('pv-input-text', InputText)
     .component('pv-select-button', SelectButton)
     .component('pv-toast', Toast)
-    .component('pv-toolbar', Toolbar);
+    .component('pv-toolbar', Toolbar)
+    .component('pv-card', Card)
 
 // Vue i18n
 app.use(i18n);
